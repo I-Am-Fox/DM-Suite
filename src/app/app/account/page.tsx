@@ -25,7 +25,7 @@ export default async function AccountPage() {
               <input className="input focus-ring" defaultValue={user.email} />
             </label>
             <button className="button button-disabled" disabled type="button">
-              Save after auth integration
+              Save after user storage lands
             </button>
           </div>
         </div>

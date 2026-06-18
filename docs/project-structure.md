@@ -20,9 +20,10 @@ Business vocabulary that is independent of Next.js and persistence.
 Application service contracts and app-level orchestration.
 
 - `auth/session.ts` reads the current server session and exposes `requireCurrentUser`.
-- `auth/neon-auth.ts` owns Neon Auth server configuration.
-- `auth/auth-client.ts` and `auth/auth-provider.tsx` own the browser-side Neon Auth client and provider.
-- `auth/session-constants.ts` contains local mock auth cookie constants and redirect path validation helpers.
+- `auth/credentials.ts` owns environment-backed credentials and the development fallback.
+- `auth/session-token.ts` creates and verifies signed session cookies.
+- `auth/session-constants.ts` contains auth cookie constants and redirect path validation helpers.
+- `auth/auth-provider.tsx` is a no-op provider kept as a stable root-layout seam.
 - `dm-suite/dm-suite-service.ts` defines the DM Suite service contract and exports the current implementation.
 
 This is the layer pages and feature loaders should depend on when they need business data.
@@ -34,7 +35,7 @@ Concrete implementations of application contracts.
 - `mock/dm-suite-fixtures.ts` contains seeded mock data.
 - `mock/dm-suite-repository.ts` implements the DM Suite service contract against those fixtures.
 
-When Neon Postgres persistence is introduced, add a database-backed implementation here and switch the application service composition without rewriting feature pages.
+When persistence is introduced, add a database-backed implementation here and switch the application service composition without rewriting feature pages.
 
 ### `src/features`
 
@@ -56,7 +57,7 @@ Generic helpers that are not DM Suite domain concepts, such as date formatting.
 
 ## Microservice Boundary
 
-Do not split this MVP into deployable microservices yet. The current product has one front-end runtime, one planned auth provider, and one planned database. Premature service boundaries would add deployment, auth, observability, and data consistency cost without a clear benefit.
+Do not split this MVP into deployable microservices yet. The current product has one front-end runtime, framework-native auth, and one planned database. Premature service boundaries would add deployment, auth, observability, and data consistency cost without a clear benefit.
 
 Use application service contracts now. Add real services later only when a boundary has an operational reason, such as long-running export jobs, billing webhooks, background email delivery, or dedicated AI processing.
 

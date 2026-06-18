@@ -7,8 +7,8 @@ The product is intended to help a DM create a campaign, prepare sessions with co
 ## Planned Stack
 
 - Frontend: Next.js, TypeScript, Tailwind CSS
-- Database: Neon Postgres
-- Auth: Neon Auth
+- Database: mock repository today; persistent database still planned
+- Auth: Next.js route handlers, signed HTTP-only cookies, and proxy route protection
 - Storage: S3-compatible storage, deferred
 - Payments: Stripe
 - Exports: Server-side Markdown and PDF generation
@@ -43,13 +43,13 @@ The front-end architecture and route plan are documented in [docs/front-end-arch
 The current repo contains a Next.js App Router and Tailwind CSS scaffold for the MVP route plan.
 
 - Public routes: `/`, `/login`, `/signup`, `/reset-password`
-- Neon Auth routes: `/auth/[path]` and `/api/auth/[...path]`
+- Auth routes: `/auth/[path]` and `/api/auth/[...path]`
 - Authenticated routes: `/app`, `/app/onboarding`, `/app/account`
 - Campaign routes: overview, sessions, session prep, world tracker, timeline, exports, and settings
-- Auth: Neon Auth when `NEON_AUTH_BASE_URL` and `NEON_AUTH_COOKIE_SECRET` are configured; local mock auth remains available only outside production while credentials are missing
+- Auth: environment-backed credentials with signed HTTP-only session cookies; development uses a local credential fallback when production credentials are not configured
 - Mock data boundary: `src/application/dm-suite/dm-suite-service.ts` exposes typed service methods backed by `src/infrastructure/mock` fixtures
 - Project structure: see [docs/project-structure.md](docs/project-structure.md)
-- Auth setup: see [docs/neon-auth.md](docs/neon-auth.md)
+- Auth setup: see [docs/nextjs-auth.md](docs/nextjs-auth.md)
 
 The session prep workspace supports populated, loading, error, and empty states. You can preview the non-default states with:
 

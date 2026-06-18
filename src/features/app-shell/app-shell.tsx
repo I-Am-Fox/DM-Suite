@@ -73,7 +73,7 @@ export function AppShell({ user, campaigns, children }: AppShellProps) {
           <Link className="nav-link focus-ring" href="/app/account">
             Account
           </Link>
-          <Link className="nav-link focus-ring" href="/auth/sign-out?redirectTo=/">
+          <Link className="nav-link focus-ring" href="/api/auth/sign-out?redirectTo=/">
             Sign out
           </Link>
         </nav>

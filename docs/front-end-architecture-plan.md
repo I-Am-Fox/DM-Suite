@@ -28,8 +28,8 @@ The first activation moment is:
 - `/` - public landing page with the product promise, app preview, and auth calls to action.
 - `/login` - sign-in page.
 - `/signup` - sign-up page.
-- `/auth/[path]` - Neon Auth UI routes, including sign-in, sign-up, callback, sign-out, forgot-password, and reset-password.
-- `/api/auth/[...path]` - Neon Auth API proxy route.
+- `/auth/[path]` - Next.js-native auth screens for sign-in, sign-up, sign-out, and password reset placeholders.
+- `/api/auth/[...path]` - Next.js route handlers for sign-in, sign-up, and sign-out session cookies.
 - `/reset-password` - password reset flow.
 
 ### Authenticated App
@@ -113,7 +113,7 @@ The exports route should exist early, but export actions can be disabled or mark
 
 ## Front-End Data Boundary
 
-During early front-end implementation, use typed view models behind a small service-like interface so mock data can be replaced by Neon Postgres without rewriting pages.
+During early front-end implementation, use typed view models behind a small service-like interface so mock data can be replaced by persistent storage without rewriting pages.
 
 Initial view models:
 
@@ -128,10 +128,11 @@ Forms and validation schemas should stay close to feature boundaries. Client-sid
 
 ## SaaS And Security Notes
 
-- All app routes under `/app` require an authenticated Neon Auth session once auth is configured.
+- All app routes under `/app` require a verified signed session cookie.
 - Campaign-scoped pages must eventually load data by both `campaignId` and authenticated `userId`.
 - Client-side filtering must not be used as the source of tenant isolation.
 - Exports must be generated server-side and scoped to the authenticated owner.
+- Sign-up is local-development only until a persistent user store exists.
 - Storage and uploads are deferred. When added, files should use private tenant-scoped paths and signed URLs.
 - Billing UI should not appear until server-side Stripe entitlements exist.
 - AI UI should not appear in MVP navigation.

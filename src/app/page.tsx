@@ -28,7 +28,7 @@ const toolkitCards = [
   },
   {
     title: "Account-scoped workspace",
-    body: "Use Neon Auth as the account boundary before campaign data moves into Neon Postgres.",
+    body: "Use Next.js route handlers and signed sessions as the account boundary before persistent storage lands.",
     label: "SaaS"
   }
 ];
